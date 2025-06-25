@@ -5,14 +5,18 @@ import HomePage from "./pages/HomePage";
 import Dashboard from "./pages/Dashboard";
 import NotFoundPage from "./pages/NotFoundPage";
 import Admin from "./pages/Admin";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { defaultOptions } from "./config/reactquery.js";
+import { getProfile } from "./services/user.js";
 
-const queryClient = new QueryClient({ defaultOptions });
 function App() {
+  const { data } = useQuery({
+    queryKey: ["profile"],
+    queryFn: getProfile,
+  });
+  console.log(data);
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <BrowserRouter>
         <Routes>
           <Route index element={<HomePage />} />
@@ -24,7 +28,7 @@ function App() {
       </BrowserRouter>
       <Toaster position="top-center" reverseOrder={false} />
       <ReactQueryDevtools />
-    </QueryClientProvider>
+    </>
   );
 }
 

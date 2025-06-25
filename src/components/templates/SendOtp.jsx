@@ -9,7 +9,7 @@ function SendOtp({ mobile, setMobile, setStep }) {
     const { response, error } = await sendOtp(mobile);
 
     if (response) setStep(2);
-    if (error) toast.error(error.response.data.message);
+    if (error) toast.error(error.response?.data.message);
   };
   return (
     <form onSubmit={submitHandler}>
