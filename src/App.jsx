@@ -8,13 +8,14 @@ import Admin from "./pages/Admin";
 import { useQuery } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { getProfile } from "./services/user.js";
+import Loader from "./components/modules/Loader.jsx";
 
 function App() {
   const { data, isLoading } = useQuery({
     queryKey: ["profile"],
     queryFn: getProfile,
   });
-  if (isLoading) return <h1>loading...</h1>;
+  if (isLoading) return <Loader />;
   console.log(data);
   return (
     <>
