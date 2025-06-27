@@ -1,5 +1,5 @@
 import { Toaster } from "react-hot-toast";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import AuthPage from "./pages/AuthPage";
 import HomePage from "./pages/HomePage";
 import Dashboard from "./pages/Dashboard";
@@ -10,19 +10,31 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { getProfile } from "./services/user.js";
 
 function App() {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["profile"],
     queryFn: getProfile,
   });
+  if (isLoading) return <h1>loading...</h1>;
   console.log(data);
   return (
     <>
       <BrowserRouter>
         <Routes>
           <Route index element={<HomePage />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/auth" element={<AuthPage />} />
-          <Route path="/admin" element={<Admin />} />
+          <Route
+            path="/dashboard"
+            element={data ? <Dashboard /> : <Navigate to="/auth" />}
+          />
+          <Route
+            path="/auth"
+            element={data ? <Navigate to="/dashboard" /> : <AuthPage />}
+          />
+          <Route
+            path="/admin"
+            element={
+              data && data.role === "ADMIN" ? <Admin /> : <Navigate to="/" />
+            }
+          />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>
