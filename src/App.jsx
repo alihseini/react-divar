@@ -11,11 +11,11 @@ import { getProfile } from "./services/user.js";
 import Loader from "./components/modules/Loader.jsx";
 
 function App() {
-  const { data, isLoading } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ["profile"],
     queryFn: getProfile,
   });
-  if (isLoading) return <Loader />;
+  if (isPending) return <Loader />;
   console.log(data);
   return (
     <>

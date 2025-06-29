@@ -1,22 +1,34 @@
-import { useState } from "react";
+import { useSearchParams } from "react-router";
 import SendOtp from "../components/templates/SendOtp";
 import CheckOtp from "../components/templates/CheckOtp";
+import { useState } from "react";
 
 function AuthPage() {
-  const [step, setStep] = useState(1);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const step = parseInt(searchParams.get("step") || "1");
+
   const [mobile, setMobile] = useState("");
   const [code, setCode] = useState("");
+
+  const goToStep = (newStep) => {
+    setSearchParams({ step: newStep });
+  };
+
   return (
-    <div>
+    <div className="w-full h-screen flex items-center justify-center text-center">
       {step === 1 && (
-        <SendOtp mobile={mobile} setMobile={setMobile} setStep={setStep} />
+        <SendOtp
+          mobile={mobile}
+          setMobile={setMobile}
+          setStep={goToStep}
+        />
       )}
       {step === 2 && (
         <CheckOtp
           mobile={mobile}
           code={code}
           setCode={setCode}
-          setStep={setStep}
+          setStep={goToStep}
         />
       )}
     </div>
