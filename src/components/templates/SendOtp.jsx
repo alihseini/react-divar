@@ -19,7 +19,7 @@ function SendOtp({ mobile, setMobile, setStep }) {
   return (
     <form
       onSubmit={submitHandler}
-      className="bg-white h-60 rounded-lg shadow-lg w-100"
+      className="bg-white h-70 rounded-lg shadow-lg w-100"
     >
       <p className="text-lg font-semibold !p-3">ورود به حساب کاربری</p>
       <p className="text-right !p-2 text-sm text-gray-400">

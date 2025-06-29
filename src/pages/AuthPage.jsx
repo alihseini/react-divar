@@ -15,13 +15,9 @@ function AuthPage() {
   };
 
   return (
-    <div className="w-full h-screen flex items-center justify-center text-center">
+    <div className="w-full h-screen overflow-hidden flex items-center justify-center text-center bg-gray-100">
       {step === 1 && (
-        <SendOtp
-          mobile={mobile}
-          setMobile={setMobile}
-          setStep={goToStep}
-        />
+        <SendOtp mobile={mobile} setMobile={setMobile} setStep={goToStep} />
       )}
       {step === 2 && (
         <CheckOtp

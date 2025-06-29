@@ -9,6 +9,8 @@ import { useQuery } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { getProfile } from "./services/user.js";
 import Loader from "./components/modules/Loader.jsx";
+import Layout from "./layout/layout.jsx";
+import Profile from "./pages/Profile.jsx";
 
 function App() {
   const { data, isPending } = useQuery({
@@ -19,24 +21,30 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        <Routes>
-          <Route index element={<HomePage />} />
-          <Route
-            path="/dashboard"
-            element={data ? <Dashboard /> : <Navigate to="/auth" />}
-          />
-          <Route
-            path="/auth"
-            element={data ? <Navigate to="/dashboard" /> : <AuthPage />}
-          />
-          <Route
-            path="/admin"
-            element={
-              data && data.role === "ADMIN" ? <Admin /> : <Navigate to="/" />
-            }
-          />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+        <Layout>
+          <Routes>
+            <Route index element={<HomePage />} />
+            <Route
+              path="/dashboard"
+              element={data ? <Dashboard /> : <Navigate to="/auth" />}
+            />
+            <Route
+              path="/profile"
+              element={data ? <Profile /> : <Navigate to="/auth" />}
+            />
+            <Route
+              path="/auth"
+              element={data ? <Navigate to="/dashboard" /> : <AuthPage />}
+            />
+            <Route
+              path="/admin"
+              element={
+                data && data.role === "ADMIN" ? <Admin /> : <Navigate to="/" />
+              }
+            />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </Layout>
       </BrowserRouter>
       <Toaster position="top-center" reverseOrder={false} />
       <ReactQueryDevtools />
