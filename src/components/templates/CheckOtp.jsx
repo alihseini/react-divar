@@ -32,7 +32,11 @@ function CheckOtp({ mobile, code, setCode, setStep }) {
     }
 
     if (error) {
-      toast.error("ورود با خطا مواجه شد!");
+      if (error?.response?.status === 401) {
+        toast.error("کد وارد شده اشتباه است!");
+      } else {
+        toast.error("ورود با خطا مواجه شد!");
+      }
     }
   };
 
@@ -54,7 +58,7 @@ function CheckOtp({ mobile, code, setCode, setStep }) {
         id="input"
         value={code}
         onChange={(e) => setCode(e.target.value)}
-        className="w-70 !p-1.5 border border-gray-300 rounded !ml-4"
+        className="w-70 !p-1.5 border border-gray-300 rounded !ml-4 focus:outline-none"
       />
 
       <div className="flex flex-col items-center gap-4 !mt-4">

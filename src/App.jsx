@@ -16,7 +16,6 @@ function App() {
     queryFn: getProfile,
   });
   if (isPending) return <Loader />;
-  console.log(data);
   return (
     <>
       <BrowserRouter>

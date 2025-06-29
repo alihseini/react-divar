@@ -23,18 +23,26 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-  (response) => {
-    return response;
-  },
+  (response) => response,
   async (error) => {
     const originalRequest = error.config;
-    if (error.status === 401 && !originalRequest._retry) {
+    if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
-      const res = await getNewToken();
-      if (!res?.response) return;
-      setCookie(res.response.data);
-      api(originalRequest);
+
+      try {
+        const res = await getNewToken();
+
+        if (!res?.response) {
+          return Promise.reject(error);
+        }
+        setCookie(res.response.data);
+        return api(originalRequest);
+      } catch (refreshError) {
+        return Promise.reject(refreshError);
+      }
     }
+
+    return Promise.reject(error);
   }
 );
 
