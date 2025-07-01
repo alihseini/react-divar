@@ -1,15 +1,17 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { addCategory } from "../../services/admin";
 import toast from "react-hot-toast";
 
 function AddCategoryForm() {
+  const queryClient = useQueryClient();
   const [form, setForm] = useState({ name: "", slug: "", icon: "" });
   const { mutate } = useMutation({
     mutationFn: addCategory,
     onSuccess: () => {
       toast.success("دسته‌بندی اضافه شد");
       setForm({ name: "", slug: "", icon: "" });
+      queryClient.invalidateQueries("get-categories");
     },
     onError: (error) => {
       if (error.status === 409) {
@@ -77,7 +79,7 @@ function AddCategoryForm() {
       </div>
       <button
         type="submit"
-        className="w-30 bg-red-600 text-white !p-1 !mt-6 rounded hover:bg-red-300 hover:cursor-pointer delay-50 ease-in"
+        className="w-30 bg-red-600 text-white !p-1 !my-6 rounded hover:bg-red-300 hover:cursor-pointer delay-50 ease-in"
       >
         ایجاد دسته بندی
       </button>
