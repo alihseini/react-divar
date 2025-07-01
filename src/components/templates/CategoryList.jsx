@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import Loader from "../modules/Loader";
 import { getCategories } from "../../services/admin";
+import MiniLoader from "../modules/MiniLoader";
 
 function CategoryList() {
   const { data, isPending } = useQuery({
@@ -9,9 +10,9 @@ function CategoryList() {
   });
   console.log(data);
   return (
-    <div className="!mt-20">
+    <div className="!mt-20 !mb-5">
       {isPending ? (
-        <Loader />
+        <MiniLoader />
       ) : (
         data.map((item) => (
           <div
