@@ -9,7 +9,7 @@ function AddCategoryForm() {
     mutationFn: addCategory,
     onSuccess: () => {
       toast.success("دسته‌بندی اضافه شد");
-      setForm({ name: "", slug: "", icon: "" }); // پاک کردن فرم
+      setForm({ name: "", slug: "", icon: "" });
     },
     onError: (error) => {
       if (error.status === 409) {
@@ -32,11 +32,7 @@ function AddCategoryForm() {
     mutate(form);
   };
   return (
-    <form
-      className="flex flex-col w-full"
-      onChange={changeHandler}
-      onSubmit={submitHandler}
-    >
+    <form className="flex flex-col w-full" onSubmit={submitHandler}>
       <p className="text-2xl font-bold border-b-2 !p-2 w-fit border-red-600">
         ایجاد دسته بندی جدید
       </p>
@@ -50,6 +46,7 @@ function AddCategoryForm() {
           name="name"
           className="w-70 !p-1.5 border border-gray-300 rounded !ml-4"
           value={form.name}
+          onChange={changeHandler}
         />
       </div>
       <div className="!p-5 flex gap-3 items-center">
@@ -62,6 +59,7 @@ function AddCategoryForm() {
           name="slug"
           className="w-70 !p-1.5 border border-gray-300 rounded !ml-4"
           value={form.slug}
+          onChange={changeHandler}
         />
       </div>
       <div className="!p-5 flex gap-3 items-center">
@@ -74,6 +72,7 @@ function AddCategoryForm() {
           name="icon"
           className="w-70 !p-1.5 border border-gray-300 rounded !ml-4"
           value={form.icon}
+          onChange={changeHandler}
         />
       </div>
       <button

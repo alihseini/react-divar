@@ -1,10 +1,12 @@
-import AddCategory from "../components/templates/AddCategoryForm";
+import AddCategoryForm from "../components/templates/AddCategoryForm";
+import CategoryList from "../components/templates/CategoryList";
 
 function AdminPage() {
   return (
-    <>
-      <AddCategory />
-    </>
+    <div className="flex flex-col w-full">
+      <CategoryList />
+      <AddCategoryForm />
+    </div>
   );
 }
 

@@ -5,4 +5,9 @@ const addCategory = async (data) => {
   return response;
 };
 
-export { addCategory };
+const getCategories = async () => {
+  const response = await api.get("category");
+  return response.data;
+};
+
+export { addCategory, getCategories };
