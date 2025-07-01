@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { useState } from "react";
-import { addCategory } from "../services/admin";
+import { addCategory } from "../../services/admin";
 import toast from "react-hot-toast";
 
-function Admin() {
+function AddCategoryForm() {
   const [form, setForm] = useState({ name: "", slug: "", icon: "" });
   const { mutate } = useMutation({
     mutationFn: addCategory,
@@ -31,7 +31,6 @@ function Admin() {
     }
     mutate(form);
   };
-
   return (
     <form
       className="flex flex-col w-full"
@@ -87,4 +86,4 @@ function Admin() {
   );
 }
 
-export default Admin;
+export default AddCategoryForm;

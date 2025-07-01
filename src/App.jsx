@@ -2,15 +2,15 @@ import { Toaster } from "react-hot-toast";
 import { BrowserRouter, Navigate, Route, Routes } from "react-router";
 import AuthPage from "./pages/AuthPage";
 import HomePage from "./pages/HomePage";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/DashboardPage.jsx";
 import NotFoundPage from "./pages/NotFoundPage";
-import Admin from "./pages/Admin";
+import AdminPage from "./pages/AdminPage";
 import { useQuery } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { getProfile } from "./services/user.js";
 import Loader from "./components/modules/Loader.jsx";
 import Layout from "./layout/layout.jsx";
-import Profile from "./pages/Profile.jsx";
+import ProfilePage from "./pages/ProfilePage.jsx";
 
 function App() {
   const { data, isPending } = useQuery({
@@ -30,7 +30,7 @@ function App() {
             />
             <Route
               path="/profile"
-              element={data ? <Profile /> : <Navigate to="/auth" />}
+              element={data ? <ProfilePage /> : <Navigate to="/auth" />}
             />
             <Route
               path="/auth"
@@ -39,7 +39,7 @@ function App() {
             <Route
               path="/admin"
               element={
-                data && data.role === "ADMIN" ? <Admin /> : <Navigate to="/" />
+                data && data.role === "ADMIN" ? <AdminPage /> : <Navigate to="/" />
               }
             />
             <Route path="*" element={<NotFoundPage />} />
