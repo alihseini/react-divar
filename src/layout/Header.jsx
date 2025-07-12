@@ -1,8 +1,10 @@
 import { Link, useNavigate } from "react-router";
-import { deleteCookie } from "../utils/cookie";
+import { deleteCookie, getCookie } from "../utils/cookie";
 
 function Header() {
   const navigate = useNavigate();
+
+  const isLoggedIn = !!getCookie("accessToken"); // اگر توکن هست، لاگین
 
   const logoutHandler = () => {
     deleteCookie("accessToken");
@@ -23,12 +25,14 @@ function Header() {
       </div>
 
       <div className="flex items-center gap-5">
-        <button
-          onClick={logoutHandler}
-          className="text-red-600 border border-red-600 rounded hover:cursor-pointer !px-2 !py-1 hover:bg-red-100"
-        >
-          خروج
-        </button>
+        {isLoggedIn && (
+          <button
+            onClick={logoutHandler}
+            className="text-red-600 border border-red-600 rounded hover:cursor-pointer !px-2 !py-1 hover:bg-red-100"
+          >
+            خروج
+          </button>
+        )}
         <Link
           to="/profile"
           className="flex items-center w-20 rounded hover:cursor-pointer delay-50 ease-in"
