@@ -50,7 +50,6 @@ function AddPost() {
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            // مهم: Content-Type رو نذار چون axios خودش تنظیم می‌کنه
           },
         }
       );
