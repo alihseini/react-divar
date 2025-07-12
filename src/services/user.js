@@ -5,4 +5,9 @@ const getProfile = async () => {
   return response.data;
 };
 
-export { getProfile };
+const getPosts = async () => {
+  const response = await api.get("/post/my");
+  return response;
+};
+
+export { getProfile, getPosts };
