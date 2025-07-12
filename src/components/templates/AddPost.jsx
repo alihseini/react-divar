@@ -54,10 +54,8 @@ function AddPost() {
 
       toast.success(res.data.message);
 
-      // ✅ Re-fetch posts after successful creation
       await queryClient.invalidateQueries({ queryKey: ["get-posts"] });
 
-      // Optional: reset form
       setForm({
         title: "",
         content: "",
