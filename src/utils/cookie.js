@@ -14,4 +14,8 @@ const getCookie = (cookieName) => {
     ?.split("=")[1];
 };
 
-export { setCookie, getCookie };
+const deleteCookie = (name) => {
+  document.cookie = `${name}=; Max-Age=0; path=/`;
+};
+
+export { setCookie, getCookie, deleteCookie };
