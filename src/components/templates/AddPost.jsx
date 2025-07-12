@@ -11,7 +11,7 @@ function AddPost() {
     content: "",
     category: "",
     city: "",
-    price: "",
+    amount: "",
     image: null,
   });
 
@@ -92,13 +92,13 @@ function AddPost() {
         id="city"
         className="w-50 border-dashed border-2 focus:outline-none border-red-700 border-red-7 !px-2 !py-1"
       />
-      <label htmlFor="price" className="!my-5">
+      <label htmlFor="amount" className="!my-5">
         قیمت:
       </label>
       <input
-        type="text"
-        name="price"
-        id="price"
+        type="number"
+        name="amount"
+        id="amount "
         className="w-50 border-dashed border-2 focus:outline-none border-red-700 !px-2 !py-1"
       />
       <label htmlFor="image" className="!my-5">
