@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { getCategories } from "../../services/admin";
 import { useState } from "react";
 import axios from "axios";
@@ -6,6 +6,8 @@ import { getCookie } from "../../utils/cookie";
 import toast from "react-hot-toast";
 
 function AddPost() {
+  const queryClient = useQueryClient();
+
   const [form, setForm] = useState({
     title: "",
     content: "",
@@ -37,10 +39,6 @@ function AddPost() {
       formData.append(key, form[key]);
     }
 
-    // دیباگ برای اطمینان از فایل
-    console.log("form.image:", form.image);
-    console.log("formData.get('image'):", formData.get("image"));
-
     const accessToken = getCookie("accessToken");
 
     try {
@@ -53,7 +51,21 @@ function AddPost() {
           },
         }
       );
+
       toast.success(res.data.message);
+
+      // ✅ Re-fetch posts after successful creation
+      await queryClient.invalidateQueries({ queryKey: ["get-posts"] });
+
+      // Optional: reset form
+      setForm({
+        title: "",
+        content: "",
+        category: "",
+        city: "",
+        amount: "",
+        images: null,
+      });
     } catch (err) {
       console.error(err);
       toast.error("مشکلی پیش آمده است");
@@ -77,6 +89,7 @@ function AddPost() {
         type="text"
         name="title"
         id="title"
+        value={form.title}
         className="w-50 border-dashed border-2 focus:outline-none border-red-700 !px-2 !py-1"
       />
 
@@ -86,17 +99,20 @@ function AddPost() {
       <textarea
         name="content"
         id="content"
+        value={form.content}
         className="w-50 border-dashed border-2 focus:outline-none border-red-700 !px-2 !py-1"
       />
 
       <label htmlFor="category" className="!my-5">
-        دسته بندی:
+        دسته‌بندی:
       </label>
       <select
         name="category"
         id="category"
+        value={form.category}
         className="w-50 border-dashed border-2 border-red-700 focus:outline-none"
       >
+        <option value="">انتخاب کنید</option>
         {data?.map((item) => (
           <option key={item._id} value={item._id}>
             {item.name}
@@ -111,6 +127,7 @@ function AddPost() {
         type="text"
         name="city"
         id="city"
+        value={form.city}
         className="w-50 border-dashed border-2 focus:outline-none border-red-700 !px-2 !py-1"
       />
 
@@ -121,6 +138,7 @@ function AddPost() {
         type="number"
         name="amount"
         id="amount"
+        value={form.amount}
         className="w-50 border-dashed border-2 focus:outline-none border-red-700 !px-2 !py-1"
       />
 
