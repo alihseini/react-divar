@@ -10,4 +10,9 @@ const getPosts = async () => {
   return response;
 };
 
-export { getProfile, getPosts };
+const getAllPosts = async () => {
+  const response = await api.get("");
+  return response;
+};
+
+export { getProfile, getPosts,getAllPosts };
